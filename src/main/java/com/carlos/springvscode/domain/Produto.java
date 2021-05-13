@@ -9,23 +9,26 @@ import javax.persistence.Id;
 
 import lombok.Data;
 
-
 @Entity
 @Data
-public class Categoria implements Serializable{
+public class Produto implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer id;    
     private String nome;
-    
-    public Categoria(Integer id, String nome) {
-        this.id = id;
-        this.nome = nome;
+    private Double preco;
+
+    public Produto() {
     }
 
-    public Categoria() {
+    public Produto(Integer id, String nome, Double preco) {
+        this.id = id;
+        this.nome = nome;
+        this.preco = preco;
     }
+
     
+
     
 }

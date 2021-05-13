@@ -1,41 +1,34 @@
 package com.carlos.springvscode.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.List;
 
-import com.carlos.springvscode.domain.Categoria;
-import com.carlos.springvscode.services.CategoriaService;
+import com.carlos.springvscode.domain.Produto;
+import com.carlos.springvscode.services.ProdutoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/Categorias")
-public class HelloController {
+@RequestMapping(value = "/Produtos")
+public class ProdutoController {
 
     @Autowired
-    private CategoriaService service; 
+    private ProdutoService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> getById(@PathVariable Integer id) {
-
-
-        Categoria cat = service.bucar(id);
-        return ResponseEntity.ok().body(cat);
+        Produto prd = service.bucar(id);
+        return ResponseEntity.ok().body(prd);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getCategorias(){
-
-        List<Categoria> cats = service.bucarAll();
-        return ResponseEntity.ok().body(cats);
+    public ResponseEntity<?> getProdutos(){
+        List<Produto> prds = service.bucarAll();
+        return ResponseEntity.ok().body(prds);
     }
-    
-    
     
 }
