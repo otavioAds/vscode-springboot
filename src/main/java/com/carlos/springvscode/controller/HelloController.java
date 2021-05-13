@@ -2,29 +2,28 @@ package com.carlos.springvscode.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.carlos.springvscode.domain.Categoria;
+import com.carlos.springvscode.services.CategoriaService;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
 @RestController
-//@RequestMapping(value = "/Categorias")
 public class HelloController {
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Categoria> getMethodName() {
 
 
-        Categoria cat1 = new Categoria(1, "nome");
-        Categoria cat2 = new Categoria(2, "carlos");
-        List<Categoria> lCat = new ArrayList<>();
-        lCat.add(cat1);
-        lCat.add(cat2);
+    private CategoriaService service; 
 
-        return  lCat;
+    @RequestMapping(value = "/Categorias/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> GetById(@PathVariable Integer id) {
+
+
+        Categoria cat = service.bucar(id);
+        return ResponseEntity.ok().body(cat);
     }
     
     
