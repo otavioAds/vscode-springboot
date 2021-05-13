@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.carlos.springvscode.domain.Categoria;
 import com.carlos.springvscode.repositories.CategoriaRepository;
+import com.carlos.springvscode.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class CategoriaService {
     public Categoria bucar(Integer id){
 
         Optional<Categoria> cat = repo.findById(id);
-        return cat.orElse(null);
+        return cat.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id.toString()+"t ipo: " + Categoria.class.getName()));
         
     }
 
