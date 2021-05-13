@@ -4,8 +4,12 @@ package com.carlos.springvscode;
 import java.util.Arrays;
 
 import com.carlos.springvscode.domain.Categoria;
+import com.carlos.springvscode.domain.Cidade;
+import com.carlos.springvscode.domain.Estado;
 import com.carlos.springvscode.domain.Produto;
 import com.carlos.springvscode.repositories.CategoriaRepository;
+import com.carlos.springvscode.repositories.CidadeRepository;
+import com.carlos.springvscode.repositories.EstadoRepository;
 import com.carlos.springvscode.repositories.ProdutoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +25,13 @@ public class SpringVscodeApplication implements CommandLineRunner{
 
 	@Autowired
 	private ProdutoRepository prodRepo;
+
+	@Autowired
+	private CidadeRepository cidRepo;
+
+	@Autowired
+	private EstadoRepository estRepo;
+
 	public static void main(String[] args) {
 		SpringApplication.run(SpringVscodeApplication.class, args);
 	}
@@ -41,8 +52,21 @@ public class SpringVscodeApplication implements CommandLineRunner{
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().add(cat1);
 
+		Estado es1 = new Estado (null,"SP");
+		Estado es2 = new Estado(null,"MG");
+
+		Cidade c1 = new Cidade(null,"Uberlândia",es2);
+		Cidade c2 = new Cidade(null,"São Paulo",es1);
+		Cidade c3 = new Cidade(null,"Campinas",es1);
+
+		es1.getCidade().addAll(Arrays.asList(c2,c3));
+		es2.getCidade().add(c1);
+
+
 		catRepo.saveAll(Arrays.asList(cat1,cat2));
 		prodRepo.saveAll(Arrays.asList(p1,p2,p3));
+		estRepo.saveAll(Arrays.asList(es1,es2));
+		cidRepo.saveAll(Arrays.asList(c1,c2,c3));
 		
 	}
 
