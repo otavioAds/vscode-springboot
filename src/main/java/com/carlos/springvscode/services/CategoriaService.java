@@ -1,5 +1,6 @@
 package com.carlos.springvscode.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.carlos.springvscode.domain.Categoria;
@@ -20,5 +21,11 @@ public class CategoriaService {
         
     }
 
+    public List<Categoria >bucarAll(){
+
+        List<Categoria> cat = repo.findAll();
+        return cat;
+        
+    }
     
 }
