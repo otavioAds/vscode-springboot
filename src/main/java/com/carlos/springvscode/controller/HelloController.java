@@ -7,7 +7,6 @@ import java.util.List;
 
 import com.carlos.springvscode.domain.Categoria;
 
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
