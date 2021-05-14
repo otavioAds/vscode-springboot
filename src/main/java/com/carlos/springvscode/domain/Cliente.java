@@ -16,6 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.carlos.springvscode.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 
@@ -35,8 +36,9 @@ public class Cliente implements Serializable{
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();//Set eh mesma coisa q list, porém nao deixa repetir
-
-    @OneToMany(mappedBy = "cliente")
+    
+    @JsonIgnore
+	@OneToMany(mappedBy="cliente")
     private List<Pedido> pedidos = new ArrayList<>();
     
     public Cliente() {

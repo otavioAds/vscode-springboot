@@ -28,18 +28,16 @@ public class Pedido implements Serializable{
     private Integer id;
     private Date instance;
     
-    @JsonIgnore
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "pedido")
+    @OneToOne(cascade=CascadeType.ALL, mappedBy="pedido")
     private Pagamento pagamento;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "cliente_id")
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
     private Cliente cliente;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "end_ent_id")
+	
+	@ManyToOne
+	@JoinColumn(name="endereco_de_entrega_id")
     private Endereco endEntrega;
 
     @JsonIgnore

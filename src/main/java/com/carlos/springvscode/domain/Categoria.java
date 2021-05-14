@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Data;
 
@@ -24,8 +23,7 @@ public class Categoria implements Serializable{
     private Integer id;
     private String nome;
 
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "categorias")
+    @ManyToMany(mappedBy="categorias")
     private List<Produto> produtos = new ArrayList<>();
     
     public Categoria(Integer id, String nome) {
