@@ -1,6 +1,7 @@
 package com.carlos.springvscode;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import com.carlos.springvscode.domain.Categoria;
@@ -8,13 +9,20 @@ import com.carlos.springvscode.domain.Cidade;
 import com.carlos.springvscode.domain.Cliente;
 import com.carlos.springvscode.domain.Endereco;
 import com.carlos.springvscode.domain.Estado;
+import com.carlos.springvscode.domain.Pagamento;
+import com.carlos.springvscode.domain.PagamentoComBoleto;
+import com.carlos.springvscode.domain.PagamentoComCartao;
+import com.carlos.springvscode.domain.Pedido;
 import com.carlos.springvscode.domain.Produto;
+import com.carlos.springvscode.domain.enums.EstadoPagamento;
 import com.carlos.springvscode.domain.enums.TipoCliente;
 import com.carlos.springvscode.repositories.CategoriaRepository;
 import com.carlos.springvscode.repositories.CidadeRepository;
 import com.carlos.springvscode.repositories.ClienteRepository;
 import com.carlos.springvscode.repositories.EnderecoRepository;
 import com.carlos.springvscode.repositories.EstadoRepository;
+import com.carlos.springvscode.repositories.PagamentoRepository;
+import com.carlos.springvscode.repositories.PedidoRepository;
 import com.carlos.springvscode.repositories.ProdutoRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +50,12 @@ public class SpringVscodeApplication implements CommandLineRunner{
 
 	@Autowired
 	private EnderecoRepository endRepo;
+
+	@Autowired
+	private PedidoRepository pedRepo;
+
+	@Autowired
+	private PagamentoRepository pagRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringVscodeApplication.class, args);
@@ -81,12 +95,27 @@ public class SpringVscodeApplication implements CommandLineRunner{
 
 		cli1.getEnderecos().addAll(Arrays.asList(en1,en2));
 
+		SimpleDateFormat sdf =  new SimpleDateFormat("dd/MM/yyyy HH:mm");
+		Pedido ped1 = new Pedido(null,sdf.parse("30/09/2017 10:32"), cli1, en1);
+		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:32"), cli1, en2);
+
+		Pagamento pgt1 = new PagamentoComCartao(null,EstadoPagamento.QUITADO, ped1,6);
+		ped1.setPagamento(pgt1);
+
+		Pagamento pgt2 = new PagamentoComBoleto(null,EstadoPagamento.PENDENTE, ped2,sdf.parse("20/10/2017 00:00"), null);
+		ped2.setPagamento(pgt2);	
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1,ped2));
+
+		
 		catRepo.saveAll(Arrays.asList(cat1,cat2));
 		prodRepo.saveAll(Arrays.asList(p1,p2,p3));
 		estRepo.saveAll(Arrays.asList(es1,es2));
 		cidRepo.saveAll(Arrays.asList(c1,c2,c3));
 		cliRepo.saveAll(Arrays.asList(cli1));
 		endRepo.saveAll(Arrays.asList(en1,en2));
+		pedRepo.saveAll(Arrays.asList(ped1,ped2));
+		pagRepo.saveAll(Arrays.asList(pgt1,pgt2));
 		
 	}
 
