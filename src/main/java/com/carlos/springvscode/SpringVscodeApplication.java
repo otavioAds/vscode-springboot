@@ -5,10 +5,15 @@ import java.util.Arrays;
 
 import com.carlos.springvscode.domain.Categoria;
 import com.carlos.springvscode.domain.Cidade;
+import com.carlos.springvscode.domain.Cliente;
+import com.carlos.springvscode.domain.Endereco;
 import com.carlos.springvscode.domain.Estado;
 import com.carlos.springvscode.domain.Produto;
+import com.carlos.springvscode.domain.enums.TipoCliente;
 import com.carlos.springvscode.repositories.CategoriaRepository;
 import com.carlos.springvscode.repositories.CidadeRepository;
+import com.carlos.springvscode.repositories.ClienteRepository;
+import com.carlos.springvscode.repositories.EnderecoRepository;
 import com.carlos.springvscode.repositories.EstadoRepository;
 import com.carlos.springvscode.repositories.ProdutoRepository;
 
@@ -31,6 +36,12 @@ public class SpringVscodeApplication implements CommandLineRunner{
 
 	@Autowired
 	private EstadoRepository estRepo;
+
+	@Autowired
+	private ClienteRepository cliRepo;
+
+	@Autowired
+	private EnderecoRepository endRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringVscodeApplication.class, args);
@@ -62,11 +73,20 @@ public class SpringVscodeApplication implements CommandLineRunner{
 		es1.getCidade().addAll(Arrays.asList(c2,c3));
 		es2.getCidade().add(c1);
 
+		Cliente cli1 = new Cliente(null,"Maria Silvia", "maria@gmail.com","36378912377",TipoCliente.PESSOAFISICA);
+		cli1.getTelefones().addAll(Arrays.asList("11974111287","11996785617"));
+
+		Endereco en1 = new Endereco(null,"Rua flores","300","apt 203","jardim","38220834",cli1,c1);
+		Endereco en2 = new Endereco(null,"AV Matos","105","sala 800","Centro","38777012",cli1,c2);
+
+		cli1.getEnderecos().addAll(Arrays.asList(en1,en2));
 
 		catRepo.saveAll(Arrays.asList(cat1,cat2));
 		prodRepo.saveAll(Arrays.asList(p1,p2,p3));
 		estRepo.saveAll(Arrays.asList(es1,es2));
 		cidRepo.saveAll(Arrays.asList(c1,c2,c3));
+		cliRepo.saveAll(Arrays.asList(cli1));
+		endRepo.saveAll(Arrays.asList(en1,en2));
 		
 	}
 
