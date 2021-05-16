@@ -6,11 +6,18 @@ import javax.persistence.Entity;
 
 import com.carlos.springvscode.domain.enums.EstadoPagamento;
 
-
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class PagamentoComBoleto extends Pagamento {
+
+    private static final long serialVersionUID = -4543807125633579124L;
+
+    @Getter @Setter
     private Date dataVencimento;
+
+    @Getter @Setter
     private Date dataPagamento;
 
     public PagamentoComBoleto(){        
@@ -23,22 +30,8 @@ public class PagamentoComBoleto extends Pagamento {
         this.dataPagamento = dataPagamento;
     }
 
-    public Date getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public void setDataVencimento(Date dataVencimento) {
+    public PagamentoComBoleto(EstadoPagamento estPagamento, Date dataVencimento) {
+        super(estPagamento);
         this.dataVencimento = dataVencimento;
     }
-
-    public Date getDataPagamento() {
-        return dataPagamento;
-    }
-
-    public void setDataPagamento(Date dataPagamento) {
-        this.dataPagamento = dataPagamento;
-    }
-
-    
-    
 }
