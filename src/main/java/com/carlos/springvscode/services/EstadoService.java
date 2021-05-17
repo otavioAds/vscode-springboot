@@ -17,7 +17,7 @@ public class EstadoService {
     @Autowired
     private EstadoRepository repo;
 
-    public Estado bucar(Integer id){
+    public Estado find(Integer id){
         Optional<Estado> prd = repo.findById(id);
         return prd.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id.toString()+"t ipo: " + Estado.class.getName()));
               

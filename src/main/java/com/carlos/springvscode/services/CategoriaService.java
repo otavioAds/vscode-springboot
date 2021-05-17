@@ -5,9 +5,11 @@ import java.util.Optional;
 
 import com.carlos.springvscode.domain.Categoria;
 import com.carlos.springvscode.repositories.CategoriaRepository;
+import com.carlos.springvscode.services.exceptions.DataIntegrityException;
 import com.carlos.springvscode.services.exceptions.ObjectNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +41,15 @@ public class CategoriaService {
     {
         find(obj.getId());
         return repo.save(obj);
+    }
+
+    public void delete(Integer id){
+        find(id);
+        try{
+            repo.deleteById(id);
+        }
+        catch(DataIntegrityViolationException e){
+            throw new DataIntegrityException("Não é possivel excluir uma categoria que contem produtos!");     
+        }
     }
 }

@@ -4,7 +4,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
 
 import com.carlos.springvscode.domain.Categoria;
 import com.carlos.springvscode.services.CategoriaService;
@@ -47,6 +46,12 @@ public class CategoriaController {
         obj = service.upDate(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete (@PathVariable Integer id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
     
     
