@@ -44,11 +44,13 @@ public class Cliente implements Serializable {
 
     @Getter
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private Set<Endereco> enderecos = new HashSet<>();
 
     @Getter
     @ElementCollection
     @CollectionTable(name = "TELEFONE")
+    @JsonIgnore
     private Set<String> telefones = new HashSet<>();// Set eh mesma coisa q list, porém nao deixa repetir
 
     @Getter
