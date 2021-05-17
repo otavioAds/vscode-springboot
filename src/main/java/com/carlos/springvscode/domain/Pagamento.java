@@ -25,7 +25,7 @@ public abstract class Pagamento implements Serializable{
     @Id
     private Integer id;
 
-    @Getter @Setter
+    
     private Integer estPagamento;
 
     @Getter @Setter
@@ -45,6 +45,16 @@ public abstract class Pagamento implements Serializable{
     }
 
     public Pagamento(EstadoPagamento estPagamento) {
+        this.estPagamento = estPagamento.getCod();
+    }
+
+    
+
+    public EstadoPagamento getEstPagamento() {
+        return EstadoPagamento.toEnum(estPagamento);
+    }
+
+    public void setEstPagamento(EstadoPagamento estPagamento) {
         this.estPagamento = estPagamento.getCod();
     }
 

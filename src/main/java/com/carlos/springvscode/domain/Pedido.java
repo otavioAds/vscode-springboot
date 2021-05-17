@@ -28,7 +28,10 @@ public class Pedido implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter @Setter
     private Integer id;
+
+    @Getter @Setter
     private Date instance;
 
     @Getter
