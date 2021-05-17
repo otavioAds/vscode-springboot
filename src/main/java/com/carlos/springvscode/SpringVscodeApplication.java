@@ -60,9 +60,12 @@ public class SpringVscodeApplication implements CommandLineRunner {
 
         Categoria cat1 = new Categoria("Informática");
         Categoria cat2 = new Categoria("Escritório");
+        Categoria cat3 = new Categoria("Cama, mesa e banho");
+        Categoria cat4 = new Categoria("Infra");
+        Categoria cat5 = new Categoria("Gamer");
+        Categoria cat6 = new Categoria("Perfumaria");
 
         p1.addCategoria(cat1);
-
         p2.addCategoria(cat1);
         p2.addCategoria(cat2);
 
@@ -96,7 +99,7 @@ public class SpringVscodeApplication implements CommandLineRunner {
         ped1.addItem(new ItemPedido(p3, 0.00, 2, 80.00));
         ped1.addItem(new ItemPedido(p2, 100.00, 1, 800.00));
 
-        catRepo.saveAll(Arrays.asList(cat1, cat2));
+        catRepo.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6));
         prodRepo.saveAll(Arrays.asList(p1, p2, p3));
 
         estRepo.saveAll(Arrays.asList(es1, es2));
