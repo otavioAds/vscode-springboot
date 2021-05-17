@@ -7,15 +7,27 @@ import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+
 
 @Entity
 public class ItemPedido implements Serializable{
     
+    private static final long serialVersionUID = 8982526159158550508L;
+
+    @Getter
     @JsonIgnore
 	@EmbeddedId
     private ItemPedidoPK id = new ItemPedidoPK();
+
+    @Getter @Setter
     private double desconto;
+    
+    @Getter @Setter
     private Integer quantidade;
+
+    @Getter @Setter
     private double preco;
     
     public ItemPedido() {
@@ -30,44 +42,20 @@ public class ItemPedido implements Serializable{
         this.preco = preco;
     }
 
+    public ItemPedido(Produto produto, double desconto, Integer quantidade, double preco) {
+        super();
+        id.setProduto(produto);
+        this.desconto = desconto;
+        this.quantidade = quantidade;
+        this.preco = preco;
+    }
+
     public Pedido getPedido(){
         return id.getPedido();
     }
 
     public Produto getProduto(){
         return id.getProduto();
-    }
-
-    public ItemPedidoPK getId() {
-        return id;
-    }
-
-    public void setId(ItemPedidoPK id) {
-        this.id = id;
-    }
-
-    public double getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(double desconto) {
-        this.desconto = desconto;
-    }
-
-    public Integer getQuantidade() {
-        return quantidade;
-    }
-
-    public void setQuantidade(Integer quantidade) {
-        this.quantidade = quantidade;
-    }
-
-    public double getPreco() {
-        return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     @Override
