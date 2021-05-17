@@ -24,6 +24,12 @@ public class CategoriaService {
         
     }
 
+    public List<Categoria> findAll(){
+
+        return repo.findAll();
+        
+    }
+
     public List<Categoria >bucarAll(){
 
         List<Categoria> cat = repo.findAll();

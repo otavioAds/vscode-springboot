@@ -17,7 +17,7 @@ import lombok.Setter;
 @Entity
 public class Categoria implements Serializable{
 
-    private static final long serialVersionUID = 6079687537411127738L;
+    private static final long serialVersionUID = 1L;
 
     @Getter @Setter
     @Id
