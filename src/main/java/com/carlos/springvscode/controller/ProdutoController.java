@@ -1,6 +1,5 @@
 package com.carlos.springvscode.controller;
 
-import java.util.List;
 
 import com.carlos.springvscode.domain.Produto;
 import com.carlos.springvscode.services.ProdutoService;

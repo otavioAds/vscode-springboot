@@ -16,11 +16,8 @@ import com.carlos.springvscode.domain.Produto;
 import com.carlos.springvscode.domain.enums.EstadoPagamento;
 import com.carlos.springvscode.domain.enums.TipoCliente;
 import com.carlos.springvscode.repositories.CategoriaRepository;
-import com.carlos.springvscode.repositories.CidadeRepository;
 import com.carlos.springvscode.repositories.ClienteRepository;
-import com.carlos.springvscode.repositories.EnderecoRepository;
 import com.carlos.springvscode.repositories.EstadoRepository;
-import com.carlos.springvscode.repositories.PagamentoRepository;
 import com.carlos.springvscode.repositories.PedidoRepository;
 import com.carlos.springvscode.repositories.ProdutoRepository;
 
@@ -38,8 +35,7 @@ public class SpringVscodeApplication implements CommandLineRunner {
     @Autowired
     private ProdutoRepository prodRepo;
 
-    @Autowired
-    private CidadeRepository cidRepo;
+   
 
     @Autowired
     private EstadoRepository estRepo;
@@ -48,13 +44,9 @@ public class SpringVscodeApplication implements CommandLineRunner {
     private ClienteRepository cliRepo;
 
     @Autowired
-    private EnderecoRepository endRepo;
-
-    @Autowired
     private PedidoRepository pedRepo;
 
     @Autowired
-    private PagamentoRepository pagRepo;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringVscodeApplication.class, args);

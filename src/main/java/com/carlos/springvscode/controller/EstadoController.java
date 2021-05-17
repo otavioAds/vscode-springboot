@@ -1,7 +1,5 @@
 package com.carlos.springvscode.controller;
 
-import java.util.List;
-
 import com.carlos.springvscode.domain.Estado;
 import com.carlos.springvscode.services.EstadoService;
 
@@ -25,10 +23,5 @@ public class EstadoController {
         return ResponseEntity.ok().body(prd);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getProdutos(){
-        List<Estado> prds = service.bucarAll();
-        return ResponseEntity.ok().body(prds);
-    }
     
 }

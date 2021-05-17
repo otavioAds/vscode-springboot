@@ -1,6 +1,5 @@
 package com.carlos.springvscode.services;
 
-import java.util.List;
 import java.util.Optional;
 
 import com.carlos.springvscode.domain.Cidade;
