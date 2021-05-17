@@ -44,7 +44,6 @@ public class Cliente implements Serializable {
 
     @Getter
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
     private Set<Endereco> enderecos = new HashSet<>();
 
     @Getter
