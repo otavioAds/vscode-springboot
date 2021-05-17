@@ -21,10 +21,10 @@ public class PagamentoController {
     private PagamentoService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
+    public ResponseEntity<Pagamento> getById(@PathVariable Integer id) {
 
 
-        Pagamento pag = service.bucar(id);
+        Pagamento pag = service.find(id);
         return ResponseEntity.ok().body(pag);
     }
 

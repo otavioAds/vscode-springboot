@@ -14,7 +14,7 @@ public class EnderecoService {
 
     @Autowired
     private EnderecoRepository repo;
-    public Endereco bucar(Integer id){
+    public Endereco find(Integer id){
 
         Optional<Endereco> end = repo.findById(id);
         return end.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id.toString()+"t ipo: " + Endereco.class.getName()));

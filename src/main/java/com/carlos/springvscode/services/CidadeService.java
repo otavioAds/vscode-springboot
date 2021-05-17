@@ -17,16 +17,10 @@ public class CidadeService {
     @Autowired
     private CidadeRepository repo;
 
-    public Cidade bucar(Integer id){
+    public Cidade find(Integer id){
         Optional<Cidade> prd = repo.findById(id);
         return prd.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id.toString()+"t ipo: " + Cidade.class.getName()));
               
     }    
 
-    public List<Cidade>bucarAll(){
-
-        List<Cidade> prd = repo.findAll();
-        return prd;
-        
-    }
 }

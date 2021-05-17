@@ -20,9 +20,9 @@ public class EnderecoController {
     private EnderecoService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
+    public ResponseEntity<Endereco> getById(@PathVariable Integer id) {
 
-        Endereco end = service.bucar(id);
+        Endereco end = service.find(id);
         return ResponseEntity.ok().body(end);
     }
 

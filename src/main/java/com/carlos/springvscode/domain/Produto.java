@@ -40,7 +40,7 @@ public class Produto implements Serializable{
 
     @Getter
     @JsonBackReference
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(
         name = "PRODUTO_CATEGORIA", 
         joinColumns = {@JoinColumn(name = "produto_id")},
@@ -61,6 +61,7 @@ public class Produto implements Serializable{
         this.preco = preco;
     }
 
+    @JsonIgnore
     public List<Pedido> getPedidos(){
         List<Pedido> lista = new ArrayList<>();
         for(ItemPedido x : itens){

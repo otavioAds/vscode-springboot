@@ -20,15 +20,10 @@ public class CidadeController {
     private CidadeService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Cidade prd = service.bucar(id);
+    public ResponseEntity<Cidade> getById(@PathVariable Integer id) {
+        Cidade prd = service.find(id);
         return ResponseEntity.ok().body(prd);
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getProdutos(){
-        List<Cidade> prds = service.bucarAll();
-        return ResponseEntity.ok().body(prds);
-    }
     
 }

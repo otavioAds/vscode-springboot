@@ -21,10 +21,10 @@ public class PedidoController {
     private PedidoService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
+    public ResponseEntity<Pedido> getById(@PathVariable Integer id) {
 
 
-        Pedido ped = service.bucar(id);
+        Pedido ped = service.find(id);
         return ResponseEntity.ok().body(ped);
     }
 

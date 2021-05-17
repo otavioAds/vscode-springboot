@@ -20,15 +20,9 @@ public class ProdutoController {
     private ProdutoService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Produto prd = service.bucar(id);
+    public ResponseEntity<Produto> getById(@PathVariable Integer id) {
+        Produto prd = service.find(id);
         return ResponseEntity.ok().body(prd);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getProdutos(){
-        List<Produto> prds = service.bucarAll();
-        return ResponseEntity.ok().body(prds);
     }
     
 }

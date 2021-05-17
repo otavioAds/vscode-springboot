@@ -21,9 +21,9 @@ public class ClienteController {
     private ClienteService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
+    public ResponseEntity<Cliente> getById(@PathVariable Integer id) {
 
-        Cliente cli = service.bucar(id);
+        Cliente cli = service.find(id);
         return ResponseEntity.ok().body(cli);
     }
 

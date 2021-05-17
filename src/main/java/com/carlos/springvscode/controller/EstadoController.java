@@ -20,8 +20,8 @@ public class EstadoController {
     private EstadoService service; 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> getById(@PathVariable Integer id) {
-        Estado prd = service.bucar(id);
+    public ResponseEntity<Estado> getById(@PathVariable Integer id) {
+        Estado prd = service.find(id);
         return ResponseEntity.ok().body(prd);
     }
 
