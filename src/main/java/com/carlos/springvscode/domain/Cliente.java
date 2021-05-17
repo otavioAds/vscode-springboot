@@ -53,7 +53,6 @@ public class Cliente implements Serializable {
     @JsonIgnore
     private Set<String> telefones = new HashSet<>();// Set eh mesma coisa q list, porém nao deixa repetir
 
-    @Getter
     @JsonIgnore
     @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
     private Set<Pedido> pedidos = new HashSet<>();
@@ -66,6 +65,18 @@ public class Cliente implements Serializable {
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tpCliente = tpCliente.getCod();
+    }
+
+
+
+    
+    @JsonIgnore
+    public Set<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(Set<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override

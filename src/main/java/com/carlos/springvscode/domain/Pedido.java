@@ -36,12 +36,12 @@ public class Pedido implements Serializable {
     private Pagamento pagamento;
 
     @Setter @Getter
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
     @Setter @Getter
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "endereco_de_entrega_id")
     private Endereco endEntrega;
 
