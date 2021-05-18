@@ -4,6 +4,8 @@ package com.carlos.springvscode.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import com.carlos.springvscode.domain.Cidade;
 import com.carlos.springvscode.domain.Cliente;
 import com.carlos.springvscode.domain.Endereco;
@@ -34,6 +36,7 @@ public class ClienteService {
         
     }
 
+    @Transactional
     public Cliente insert (Cliente obj)
     {
         obj.setId(null);

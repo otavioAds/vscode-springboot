@@ -41,9 +41,8 @@ public class Endereco implements Serializable{
     private String cep;
 
     @Getter @Setter
-	@ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
 	@JoinColumn(name="cidade_id")
-    @JsonIgnore
     private Cidade cidade;
 
     @Getter @Setter
