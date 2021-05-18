@@ -34,12 +34,6 @@ public class CategoriaService {
         
     }
 
-    public List<Categoria >bucarAll(){
-
-        List<Categoria> cat = repo.findAll();
-        return cat;
-        
-    }
 
     public Categoria insert (Categoria obj)
     {
