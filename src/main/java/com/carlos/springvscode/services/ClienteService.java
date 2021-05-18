@@ -1,10 +1,15 @@
+
 package com.carlos.springvscode.services;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.carlos.springvscode.domain.Cidade;
 import com.carlos.springvscode.domain.Cliente;
+import com.carlos.springvscode.domain.Endereco;
+import com.carlos.springvscode.domain.enums.TipoCliente;
 import com.carlos.springvscode.dto.ClienteDTO;
+import com.carlos.springvscode.dto.ClienteNewDTO;
 import com.carlos.springvscode.repositories.ClienteRepository;
 import com.carlos.springvscode.services.exceptions.DataIntegrityException;
 import com.carlos.springvscode.services.exceptions.ObjectNotFoundException;
@@ -21,11 +26,18 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repo;
+
     public Cliente find(Integer id){
 
         Optional<Cliente> cat = repo.findById(id);
         return cat.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id.toString()+"t ipo: " + Cliente.class.getName()));
         
+    }
+
+    public Cliente insert (Cliente obj)
+    {
+        obj.setId(null);
+        return repo.save(obj);
     }
 
     public Cliente upDate (Cliente obj)
@@ -60,6 +72,35 @@ public class ClienteService {
 
     public Cliente fromDto(ClienteDTO objDto){
         return new Cliente(objDto.getNome(), objDto.getEmail(),null,null);
+    }
+
+
+    //DTO
+    public Cliente fromDto(ClienteNewDTO objDto){
+        Cliente cli = new  Cliente(objDto.getNome(), 
+                                    objDto.getEmail(), 
+                                    objDto.getCpfOuCnpj(), 
+                                    TipoCliente.toEnum(objDto.getTpCliente()));
+
+        Cidade cid = new Cidade(null);
+        cid.setId(objDto.getCidadeId());
+        Endereco end =  new Endereco(null,
+                                     objDto.getLogradouro(), 
+                                     objDto.getNumero(), 
+                                     objDto.getComplemente(), 
+                                     objDto.getBairro(), 
+                                     objDto.getCep(),
+                                     cli,
+                                     cid );
+
+        cli.getEnderecos().add(end);
+        cli.getTelefones().add(objDto.getTelefone1());
+        if (objDto.getTelefone2()!=null)
+            cli.getTelefones().add(objDto.getTelefone2());
+        if (objDto.getTelefone3()!=null)
+            cli.getTelefones().add(objDto.getTelefone3());
+
+        return cli;
     }
 
     private void updateDate(Cliente newObj, Cliente obj){

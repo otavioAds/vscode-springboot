@@ -1,3 +1,4 @@
+
 package com.carlos.springvscode.services;
 
 import java.util.Optional;
@@ -17,8 +18,8 @@ public class CidadeService {
     private CidadeRepository repo;
 
     public Cidade find(Integer id){
-        Optional<Cidade> prd = repo.findById(id);
-        return prd.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id.toString()+"t ipo: " + Cidade.class.getName()));
+        Optional<Cidade> cid = repo.findById(id);
+        return cid.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado! id: " + id.toString()+"t ipo: " + Cidade.class.getName()));
               
     }    
 

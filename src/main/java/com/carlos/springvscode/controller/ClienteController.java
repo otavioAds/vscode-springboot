@@ -11,6 +11,7 @@ import javax.validation.Valid;
 
 import com.carlos.springvscode.domain.Cliente;
 import com.carlos.springvscode.dto.ClienteDTO;
+import com.carlos.springvscode.dto.ClienteNewDTO;
 import com.carlos.springvscode.services.ClienteService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,15 @@ public class ClienteController {
 
         Cliente cli = service.find(id);
         return ResponseEntity.ok().body(cli);
+    }
+
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> insert (@Valid @RequestBody ClienteNewDTO objDto){
+        Cliente obj = service.fromDto(objDto);
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).build();
+
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
@@ -75,3 +85,7 @@ public class ClienteController {
     
     
 }
+
+
+
+
