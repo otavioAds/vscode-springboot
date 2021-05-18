@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.carlos.springvscode.domain.Categoria;
+import com.carlos.springvscode.dto.CategoriaDTO;
 import com.carlos.springvscode.repositories.CategoriaRepository;
 import com.carlos.springvscode.services.exceptions.DataIntegrityException;
 import com.carlos.springvscode.services.exceptions.ObjectNotFoundException;
@@ -66,5 +67,9 @@ public class CategoriaService {
 
         PageRequest pageRequest = PageRequest.of(page,linesPerPage,Direction.valueOf(direction), orderBy);
         return repo.findAll(pageRequest);
+    }
+
+    public Categoria fromDto(CategoriaDTO objDto){
+        return new Categoria(objDto.getNome());
     }
 }
