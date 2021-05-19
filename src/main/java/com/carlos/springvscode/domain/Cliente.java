@@ -43,7 +43,7 @@ public class Cliente implements Serializable {
     private Integer tpCliente;
 
     @Getter
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
     private Set<Endereco> enderecos = new HashSet<>();
 
     @Getter
