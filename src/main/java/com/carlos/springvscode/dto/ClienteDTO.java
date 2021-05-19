@@ -6,12 +6,14 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
 import com.carlos.springvscode.domain.Cliente;
+import com.carlos.springvscode.services.validation.ClienteUpdate;
 
 import org.hibernate.validator.constraints.Length;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@ClienteUpdate 
 public class ClienteDTO implements Serializable{
 
     private static final long serialVersionUID = 1L;  
