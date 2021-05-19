@@ -85,7 +85,7 @@ public class ClienteService {
                                     objDto.getCpfOuCnpj(), 
                                     TipoCliente.toEnum(objDto.getTpCliente()));
 
-        Cidade cid = new Cidade(null);
+        Cidade cid = new Cidade(null, null);
         cid.setId(objDto.getCidadeId());
         Endereco end =  new Endereco(null,
                                      objDto.getLogradouro(), 

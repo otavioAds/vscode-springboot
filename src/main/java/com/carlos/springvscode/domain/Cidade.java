@@ -33,8 +33,10 @@ public class Cidade implements Serializable{
     public Cidade() {
     }
     
-    public Cidade(String nome) {
+    public Cidade(String nome, Estado estado) {
+        super();
         this.nome = nome;
+        this.estado = estado;
     }
 
     @Override
