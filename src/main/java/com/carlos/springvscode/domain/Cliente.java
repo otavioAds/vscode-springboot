@@ -1,7 +1,9 @@
 package com.carlos.springvscode.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -9,7 +11,6 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,104 +19,131 @@ import javax.persistence.OneToMany;
 import com.carlos.springvscode.domain.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 public class Cliente implements Serializable {
 
-    private static final long serialVersionUID = -4793221892587620623L;
+    private static final long serialVersionUID = 1L;
 
-    @Getter @Setter
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	private String nome;
+	
+	@Column(unique=true)
+	private String email;
+	private String cpfOuCnpj;
+	private Integer tipo;
+	
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
+	private List<Endereco> enderecos = new ArrayList<>();
+	
+	@ElementCollection
+	@CollectionTable(name="TELEFONE")
+	private Set<String> telefones = new HashSet<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
+	public Cliente() {
+	}
 
-    @Getter @Setter
-    private String nome;
+	public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+		super();
+		this.nome = nome;
+		this.email = email;
+		this.cpfOuCnpj = cpfOuCnpj;
+		this.tipo = (tipo==null) ? null : tipo.getCod();
+	}
 
-    @Getter @Setter
-    @Column(unique = true)
-    private String email;
+	public Integer getId() {
+		return id;
+	}
 
-    @Getter @Setter
-    private String cpfOuCnpj;
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    @Getter @Setter
-    private Integer tpCliente;
+	public String getNome() {
+		return nome;
+	}
 
-    @Getter
-    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private Set<Endereco> enderecos = new HashSet<>();
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    @Getter
-    @ElementCollection
-    @CollectionTable(name = "TELEFONE")
-    @JsonIgnore
-    private Set<String> telefones = new HashSet<>();// Set eh mesma coisa q list, porém nao deixa repetir
+	public String getEmail() {
+		return email;
+	}
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cliente", fetch = FetchType.LAZY)
-    private Set<Pedido> pedidos = new HashSet<>();
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public Cliente() {
-    }
+	public String getCpfOuCnpj() {
+		return cpfOuCnpj;
+	}
 
-    public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tpCliente) {
-        this.nome = nome;
-        this.email = email;
-        this.cpfOuCnpj = cpfOuCnpj;
-        this.tpCliente = (tpCliente == null) ? null :tpCliente.getCod();
-    }
+	public void setCpfOuCnpj(String cpfOuCnpj) {
+		this.cpfOuCnpj = cpfOuCnpj;
+	}
 
-    
-    @JsonIgnore
-    public Set<Pedido> getPedidos() {
-        return pedidos;
-    }
+	public TipoCliente getTipo() {
+		return TipoCliente.toEnum(tipo);
+	}
 
-    public void setPedidos(Set<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
+	public void setTipo(TipoCliente tipo) {
+		this.tipo = tipo.getCod();
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((cpfOuCnpj == null) ? 0 : cpfOuCnpj.hashCode());
-        return result;
-    }
+	public List<Endereco> getEnderecos() {
+		return enderecos;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Cliente other = (Cliente) obj;
-        if (cpfOuCnpj == null) {
-            if (other.cpfOuCnpj != null)
-                return false;
-        } else if (!cpfOuCnpj.equals(other.cpfOuCnpj))
-            return false;
-        return true;
-    }
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
+	}
 
-    @Override
-    public String toString() {
-        return "Cliente [CpfOuCnpj=" + cpfOuCnpj + ", email=" + email + ", id=" + id + ", nome=" + nome + "]";
-    }
+	public Set<String> getTelefones() {
+		return telefones;
+	}
 
-    public Endereco addEndereco(Endereco en) {
-        enderecos.add(en);
-        en.setCliente(this);
-        return en;
-    }
+	public void setTelefones(Set<String> telefones) {
+		this.telefones = telefones;
+	}
 
-    public String addTelefone(String tel) {
-        telefones.add(tel);
-        return tel;
-    }
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Cliente other = (Cliente) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}	
+
 }

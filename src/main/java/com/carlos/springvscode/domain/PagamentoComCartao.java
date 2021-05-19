@@ -5,27 +5,26 @@ import javax.persistence.Entity;
 
 import com.carlos.springvscode.domain.enums.EstadoPagamento;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 public class PagamentoComCartao extends Pagamento {
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = -8608602037083413069L;
+    private Integer numeroDeParcelas;
+	
+	public PagamentoComCartao() {
+	}
 
-    @Getter @Setter
-    private Integer numeroDeParcela;
+	public PagamentoComCartao(Integer id, EstadoPagamento estado, Pedido pedido, Integer numeroDeParcelas) {
+		super(id, estado, pedido);
+		this.numeroDeParcelas = numeroDeParcelas;
+	}
 
-    public PagamentoComCartao(){
-    }
+	public Integer getNumeroDeParcelas() {
+		return numeroDeParcelas;
+	}
 
-    public PagamentoComCartao(Integer id, EstadoPagamento estPagamento, Pedido pedido, Integer numeroDeParcela) {
-        super(id, estPagamento, pedido);
-        this.numeroDeParcela = numeroDeParcela;
-    }
-
-    public PagamentoComCartao(EstadoPagamento estPagamento, Integer numeroDeParcela) {
-        super(estPagamento);
-        this.numeroDeParcela = numeroDeParcela;
-    }
+	public void setNumeroDeParcelas(Integer numeroDeParcelas) {
+		this.numeroDeParcelas = numeroDeParcelas;
+	}
 }

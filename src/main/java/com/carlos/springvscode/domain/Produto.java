@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,92 +15,112 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
-import lombok.Setter;
 
 @Entity
 public class Produto implements Serializable{
+    private static final long serialVersionUID = 1L;
 
-    private static final long serialVersionUID = 4917092244354065170L;
-
-    @Getter @Setter
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	private String nome;
+	private Double preco;
+	
+	@JsonIgnore
+	@ManyToMany
+	@JoinTable(name = "PRODUTO_CATEGORIA",
+		joinColumns = @JoinColumn(name = "produto_id"),
+		inverseJoinColumns = @JoinColumn(name = "categoria_id")
+	)
+	private List<Categoria> categorias = new ArrayList<>();
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="id.produto")
+	private Set<ItemPedido> itens = new HashSet<>();
+	
+	public Produto() {
+	}
 
-    @Getter @Setter
-    private String nome;
+	public Produto( String nome, Double preco) {
+		super();
+		this.nome = nome;
+		this.preco = preco;
+	}
 
-    @Getter @Setter
-    private Double preco;
+	@JsonIgnore
+	public List<Pedido> getPedidos() {
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido x : itens) {
+			lista.add(x.getPedido());
+		}
+		return lista;
+	}
+	
+	
+	public Integer getId() {
+		return id;
+	}
 
-    @Getter
-    @JsonBackReference
-    @ManyToMany
-    @JoinTable(
-        name = "PRODUTO_CATEGORIA", 
-        joinColumns = {@JoinColumn(name = "produto_id")},
-        inverseJoinColumns = {@JoinColumn(name = "categoria_id")}
-    )
-    private Set<Categoria> categorias = new HashSet<>();
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    @Getter
-    @JsonIgnore
-    @OneToMany(mappedBy = "id.produto", fetch = FetchType.LAZY)
-    private Set<ItemPedido> itens = new HashSet<>();
+	public String getNome() {
+		return nome;
+	}
 
-    public Produto() {
-    }
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 
-    public Produto(String nome, Double preco) {
-        this.nome = nome;
-        this.preco = preco;
-    }
+	public Double getPreco() {
+		return preco;
+	}
 
-    @JsonIgnore
-    public List<Pedido> getPedidos(){
-        List<Pedido> lista = new ArrayList<>();
-        for(ItemPedido x : itens){
-            lista.add(x.getPedido());
-        }
-        return lista;
-    }
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-        return result;
-    }
+	public List<Categoria> getCategorias() {
+		return categorias;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Produto other = (Produto) obj;
-        if (nome == null) {
-            if (other.nome != null)
-                return false;
-        } else if (!nome.equals(other.nome))
-            return false;
-        return true;
-    }
+	public void setCategorias(List<Categoria> categorias) {
+		this.categorias = categorias;
+	}
 
-    @Override
-    public String toString() {
-        return "Produto [id=" + id + ", nome=" + nome + ", preco=" + preco + "]";
-    }
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
 
-    public Categoria addCategoria(Categoria cat) {
-        categorias.add(cat);
-        return cat;
-    }
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Produto other = (Produto) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 }
